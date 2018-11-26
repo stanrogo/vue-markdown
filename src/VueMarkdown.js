@@ -7,8 +7,6 @@ import deflist from 'markdown-it-deflist'
 import abbreviation from 'markdown-it-abbr'
 import insert from 'markdown-it-ins'
 import mark from 'markdown-it-mark'
-import toc from 'markdown-it-toc-and-anchor'
-import katex from 'markdown-it-katex'
 import tasklists from 'markdown-it-task-lists'
 
 export default {
@@ -25,7 +23,7 @@ export default {
   props: {
     watches: {
       type: Array,
-      default: () => ['source', 'show', 'toc'],
+      default: () => ['source', 'show'],
     },
     source: {
       type: String,
@@ -79,44 +77,6 @@ export default {
       type: Boolean,
       default: true
     },
-    toc: {
-      type: Boolean,
-      default: false,
-    },
-    tocId: {
-      type: String,
-    },
-    tocClass: {
-      type: String,
-      default: 'table-of-contents',
-    },
-    tocFirstLevel: {
-      type: Number,
-      default: 2,
-    },
-    tocLastLevel: {
-      type: Number,
-    },
-    tocAnchorLink: {
-      type: Boolean,
-      default: true,
-    },
-    tocAnchorClass: {
-      type: String,
-      default: 'toc-anchor',
-    },
-    tocAnchorLinkSymbol: {
-      type: String,
-      default: '#',
-    },
-    tocAnchorLinkSpace: {
-      type: Boolean,
-      default: true,
-    },
-    tocAnchorLinkClass: {
-      type: String,
-      default: 'toc-anchor-link',
-    },
     anchorAttributes: {
       type: Object,
       default: () => ({})
@@ -131,12 +91,6 @@ export default {
     }
   },
 
-  computed: {
-    tocLastLevelComputed() {
-      return this.tocLastLevel > this.tocFirstLevel ? this.tocLastLevel : this.tocFirstLevel + 1
-    }
-  },
-
   render(createElement) {
     this.md = new markdownIt()
       .use(subscript)
@@ -146,7 +100,6 @@ export default {
       .use(abbreviation)
       .use(insert)
       .use(mark)
-      .use(katex, { "throwOnError": false, "errorColor": " #cc0000" })
       .use(tasklists, { enabled: this.taskLists })
 
     if (this.emoji) {
@@ -178,28 +131,6 @@ export default {
         }
       })
       return defaultLinkRenderer(tokens, idx, options, env, self)
-    }
-
-    if (this.toc) {
-      this.md.use(toc, {
-        tocClassName: this.tocClass,
-        tocFirstLevel: this.tocFirstLevel,
-        tocLastLevel: this.tocLastLevelComputed,
-        anchorLink: this.tocAnchorLink,
-        anchorLinkSymbol: this.tocAnchorLinkSymbol,
-        anchorLinkSpace: this.tocAnchorLinkSpace,
-        anchorClassName: this.tocAnchorClass,
-        anchorLinkSymbolClassName: this.tocAnchorLinkClass,
-        tocCallback: (tocMarkdown, tocArray, tocHtml) => {
-          if (tocHtml) {
-            if (this.tocId && document.getElementById(this.tocId)) {
-              document.getElementById(this.tocId).innerHTML = tocHtml
-            }
-
-            this.$emit('toc-rendered', tocHtml)
-          }
-        },
-      })
     }
 
     let outHtml = this.show ?

@@ -1,6 +1,6 @@
 {
   "name": "vue-markdown",
-  "version": "2.2.4",
+  "version": "1.0.0",
   "description": "A Powerful and Highspeed Markdown Parser for Vue",
   "main": "dist/vue-markdown.common.js",
   "files": [
@@ -22,12 +22,12 @@
     "markdown",
     "vue-markdown"
   ],
-  "author": "miaolz123",
+  "author": "stanrogo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/miaolz123/vue-markdown/issues"
+    "url": "https://github.com/stanrogo/vue-markdown/issues"
   },
-  "homepage": "https://github.com/miaolz123/vue-markdown#readme",
+  "homepage": "https://github.com/stanrogo/vue-markdown#readme",
   "devDependencies": {
     "babel-core": "^6.8.0",
     "babel-loader": "^6.2.4",
@@ -48,11 +48,9 @@
     "markdown-it-emoji": "^1.1.1",
     "markdown-it-footnote": "^2.0.0",
     "markdown-it-ins": "^2.0.0",
-    "markdown-it-katex": "^2.0.3",
     "markdown-it-mark": "^2.0.0",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
-    "markdown-it-task-lists": "^2.0.1",
-    "markdown-it-toc-and-anchor": "^4.1.2"
+    "markdown-it-task-lists": "^2.0.1"
   }
 }
